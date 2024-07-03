@@ -21,18 +21,18 @@ enum factory_commands {
     f_bootloader    = 0xFE,
 };
 
-#if defined(RGB_MATRIX_ENABLE)
-extern uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
+// #if defined(RGB_MATRIX_ENABLE)
+// extern uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 
-void emulate_rgb_keycode_press(uint16_t target_keycode) {
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            uint16_t keycode = keymaps[0][row][col];
-            process_rgb_matrix(row, col, keycode == target_keycode);
-        }
-    }
-}
-#endif
+// void emulate_rgb_keycode_press(uint16_t target_keycode) {
+//     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+//         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+//             uint16_t keycode = keymaps[0][row][col];
+//             process_rgb_matrix(row, col, keycode == target_keycode);
+//         }
+//     }
+// }
+// #endif
 #ifdef SERIAL_NUMBER
 extern char ascii_serialnum[SERIALNUM_LEN+1];
 #endif
@@ -49,7 +49,7 @@ void handle_factory_command(uint8_t *data) {
         case f_emu_keypress:
             uprintf("Emulating keycode: %u\n", command_data[0]);
 #if defined(RGB_MATRIX_ENABLE)
-            emulate_rgb_keycode_press(command_data[0]);
+            // emulate_rgb_keycode_press(command_data[0]);
 #else
             tap_code(command_data[0]);
 #endif
